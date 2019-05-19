@@ -1,0 +1,45 @@
+* {
+    box-sizing: border-box;
+    color: white;
+    background-color: black;
+    text-align: center;
+}
+
+.rating {
+    margin-top: 15%;
+}
+
+.stars {
+    margin-top: 5px;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+}
+
+button {
+    font-size: 100%;
+    font-family: inherit;
+    border: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    font-size: 72px;
+}
+
+.go {
+    font-size: 45px;
+    border: 10px solid white;
+    border-radius: 50%;
+    margin: 20px;
+    padding: 40px;
+}
+
+.location-text {
+    font-style: italic;
+    margin-top: 25px;
+}
