@@ -7,24 +7,48 @@
 
 .rating {
     margin-top: 15%;
+    display: flex;
+    flex-direction: column;
 }
 
 .stars {
     margin-top: 5px;
     list-style: none;
-    display: flex;
-    flex-direction: row;
     margin-left: auto;
     margin-right: auto;
     justify-content: center;
+    border: none;
 }
 
-.stars input {
-    display: none;
+.stars:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
 }
-
-.stars > input:checked + label  {
-    color: orange;
+.stars:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.stars:not(:checked) > label:before {
+    content: '★ ';
+}
+.stars > input:checked ~ label {
+    color: #ffc700;    
+}
+.stars:not(:checked) > label:hover,
+.stars:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.stars > input:checked + label:hover,
+.stars > input:checked + label:hover ~ label,
+.stars > input:checked ~ label:hover,
+.stars > input:checked ~ label:hover ~ label,
+.stars > label:hover ~ input:checked ~ label {
+    color: #c59b08;
 }
 
 button {

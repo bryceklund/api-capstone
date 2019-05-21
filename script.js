@@ -53,7 +53,7 @@ function callYelp(lat, long, rating) {
 function getData(position) {
     const lat = position.coords.latitude;
     const long = position.coords.longitude;
-    const rating = $("input[name='star']:checked").val();
+    const rating = $(".stars input:checked").val();
     console.log(lat, long);
     callYelp(lat, long, rating);
 }
@@ -63,6 +63,7 @@ function handleGo() {
         console.log('go button clicked');
         event.preventDefault();
         navigator.geolocation.getCurrentPosition(getData);
+        
     })
 }
 
