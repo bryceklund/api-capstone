@@ -19,6 +19,14 @@
     justify-content: center;
 }
 
+.stars input {
+    display: none;
+}
+
+.stars > input:checked + label  {
+    color: orange;
+}
+
 button {
     font-size: 100%;
     font-family: inherit;
@@ -42,4 +50,63 @@ h1 {
 .location-text {
     font-style: italic;
     margin-top: 25px;
+}
+
+.hidden {
+    display: none;
+}
+
+.results-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.result {
+    padding: 15px;
+    border: 1px solid white;
+    margin: 10px;
+    height: 240px;
+    width: 700px;
+    max-width: 900px;
+}
+
+.result img {
+    width: auto;
+    height: 200px;
+    float: left;
+    margin-right: 10px;
+}
+
+.result h2 {
+    font-size: 23px;
+    line-height: 32px;
+}
+
+.result p {
+    display: relative;
+}
+
+.result span {
+    line-height: 22px;
+}
+
+.address {
+    color: #FF4545;
+}
+
+.hours {
+    color: 
+}
+
+.rating {
+    color: #802626;
+}
+
+.try-again {
+    font-size: 20px;
+    border: 2px solid red;
+    margin: 10px;
+    padding: 10px;
 }
