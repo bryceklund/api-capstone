@@ -20,7 +20,7 @@ function showData(json) {
 }
 
 function callYelp(lat, long, rating) {
-    const url = "https://cors-anywhere.herokuapp.com" + `/api.yelp.com/v3/businesses/search?latitude=${lat}&longitude=${long}&radius=3200&categories=divebars&price=1`;
+    const url = "https://cors-anywhere.herokuapp.com" + `/api.yelp.com:443/v3/businesses/search?latitude=${lat}&longitude=${long}&radius=3200&categories=divebars&price=1`;
     const header = {
         method: 'get',
         headers: {
