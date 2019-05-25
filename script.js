@@ -1,6 +1,7 @@
 
 
 function callYelp(lat, long, rating) {
+    console.log(lat, long);
     const url = `https://api.yelp.com/v3/businesses/search?latitude=${lat}&longitude=${long}&radius=3200&categories=divebars&price=1`;
     const header = {
         method: 'get',
