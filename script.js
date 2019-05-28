@@ -4,7 +4,8 @@ function showData(json) {
     $('.try-again').removeClass('hidden');
     for (let i = 0; i < json.total; i++) {
         console.log(json['businesses'][i]);
-        $('.results').append(`<a href="${json['businesses'][i]["url"]}" target="_blank">
+        if (json['businesses'][i]['is_closed'] == false) {
+            $('.results').append(`<a href="${json['businesses'][i]["url"]}" target="_blank">
             <div class="result">
             <img src="${json['businesses'][i]["image_url"]}" alt="business photo">
             <h2>${json['businesses'][i]["name"]}</h2>
@@ -15,6 +16,7 @@ function showData(json) {
             </p>
             </div>
         </a>`);
+        }
     }
     $('.try-again').click(event => appReset());
 }
