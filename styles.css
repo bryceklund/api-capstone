@@ -1,14 +1,24 @@
-* {
+*, h2 {
     box-sizing: border-box;
     color: white;
     background-color: black;
     text-align: center;
+    font-family: 'Inconsolata', monospace;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+header {
+    margin-top: 20px;
 }
 
 .rating {
-    margin-top: 15%;
+    margin-top: 60px;
     display: flex;
     flex-direction: column;
+    margin-bottom: 50px;
 }
 
 .stars {
@@ -48,7 +58,7 @@
 .stars > input:checked ~ label:hover,
 .stars > input:checked ~ label:hover ~ label,
 .stars > label:hover ~ input:checked ~ label,
-.stars input:checked {
+.stars input:checked ~ label {
     color: #c59b08;
 }
 
@@ -61,7 +71,9 @@ button {
 
 h1 {
     text-align: center;
-    font-size: 72px;
+    font-size: 100px;
+    font-family: 'UnifrakturMaguntia', cursive;
+    margin-bottom: 15px;
 }
 
 .go {
@@ -88,13 +100,22 @@ h1 {
     align-items: center;
 }
 
+.results {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+}
+
 .result {
     padding: 15px;
     border: 1px solid white;
     margin: 10px;
     height: 240px;
-    width: 300px;
+    width: 100%;
     max-width: 900px;
+
 }
 
 .result img {
@@ -125,10 +146,6 @@ h1 {
     color: 
 }
 
-.rating {
-    color: #802626;
-}
-
 .try-again {
     font-size: 20px;
     border: 2px solid red;
@@ -138,4 +155,22 @@ h1 {
 
 ul, li {
     list-style: none;
+}
+
+.no-results {
+    margin-top: 25px;
+}
+
+.with-couches {
+    margin: 20px;
+}
+
+.error-text {
+    color: red;
+    font-style: italic;
+    margin: 20px;
+}
+
+.loading {
+    margin-top: 200px;
 }

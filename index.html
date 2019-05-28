@@ -5,18 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata|UnifrakturMaguntia&display=swap" rel="stylesheet">
     <title>Dive Bar Finder</title>
 </head>
 <body>
     <header>
-        <h1>TITLE</h1>
+        <h1>Bottom Feeder</h1>
         <h2>FIND THE NEAREST DIVE BARS</h2>
     </header>
     <main>
         <section class="home">
             <div class="rating">
-                rating:
+                maximum desired rating:
                 <form class="stars">
                     <label for="star5">5 star></label>
                     <input type="radio" id="star5" value="5" name="stars" />
@@ -30,22 +31,26 @@
                     <input type="radio" id="star1" value="1" name="stars" />
                 </form>
             </div>
+            <div class="with-couches">
+                <label for="couches">with couches? </label>
+                <input type="checkbox" id="couches" value="couches">
+            </div>
+            <div class="error-text"></div>
             <button class="go" id="go">GO</button>
             <p class="location-text">PLEASE ALLOW LOCATION SHARING</p>
         </section>
-    
+    <div class="loading hidden">Hang on a second...</div>
     <section class="results-container hidden">
         <button class="try-again" id="go">Try Again</button>
         <label for="sort-option">Sort by: </label>
         <select id="sort-option">
-            <option value="name-desc">A-Z</option>
-            <option value="name-asc">Z-A</option>
+            <option value="">Choose One</option>
+            <option value="name-asc">A-Z</option>
+            <option value="name-desc">Z-A</option>
             <option value="distance-desc">Near</option>
             <option value="distance-asc">Far</option>
-            <option value="rating-desc">High Rating</option>
-            <option value="rating-asc">Low Rating</option>
-            <option value="busy-desc">Busiest</option>
-            <option value="busy-asc">Emptiest</option>
+            <option value="rating-asc">High Rating</option>
+            <option value="rating-desc">Low Rating</option>
         </select>
         <ul class="results"></ul>
     </section>
