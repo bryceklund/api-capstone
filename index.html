@@ -15,28 +15,39 @@
     </header>
     <main>
         <section class="home">
-            <!--<div class="rating">
+            <div class="rating">
                 rating:
                 <form class="stars">
-                    <label for="star1">1 star</label>
-                    <input type="radio" id="star1" value="1" name="stars" />
-                    <label for="star2">2 star</label>
-                    <input type="radio" id="star2" value="2" name="stars" />
-                    <label for="star3">3 star</label>
-                    <input type="radio" id="star3" value="3" name="stars" />
-                    <label for="star4">4 star</label>
-                    <input type="radio" id="star4" value="4" name="stars" />
                     <label for="star5">5 star></label>
                     <input type="radio" id="star5" value="5" name="stars" />
+                    <label for="star4">4 star</label>
+                    <input type="radio" id="star4" value="4" name="stars" />
+                    <label for="star3">3 star</label>
+                    <input type="radio" id="star3" value="3" name="stars" />
+                    <label for="star2">2 star</label>
+                    <input type="radio" id="star2" value="2" name="stars" />
+                    <label for="star1">1 star</label>
+                    <input type="radio" id="star1" value="1" name="stars" />
                 </form>
-            </div>-->
+            </div>
             <button class="go" id="go">GO</button>
             <p class="location-text">PLEASE ALLOW LOCATION SHARING</p>
         </section>
     
-    <section class="results-container">
-        <button class="try-again hidden" id="go">Try Again</button>
-        <section class="results"></section>
+    <section class="results-container hidden">
+        <button class="try-again" id="go">Try Again</button>
+        <label for="sort-option">Sort by: </label>
+        <select id="sort-option">
+            <option value="name-desc">A-Z</option>
+            <option value="name-asc">Z-A</option>
+            <option value="distance-desc">Near</option>
+            <option value="distance-asc">Far</option>
+            <option value="rating-desc">High Rating</option>
+            <option value="rating-asc">Low Rating</option>
+            <option value="busy-desc">Busiest</option>
+            <option value="busy-asc">Emptiest</option>
+        </select>
+        <ul class="results"></ul>
     </section>
     </main>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
