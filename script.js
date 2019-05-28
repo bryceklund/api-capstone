@@ -1,22 +1,77 @@
-function showData(json) {
+function sortBy(arg, sel, elem) { //taken from the internet
+    console.log('sortBy is running');
+        let element = $(sel).children(elem);
+        if (arg.includes("name")) {
+            console.log('name sort is running');
+            if (arg.includes("desc")) {
+                element.sort();
+            } else {
+                element.sort();
+                element.reverse();
+            }
+            $(element).detach().appendTo($(sel));
+            console.log(element);
+        } else {
+            console.log('int sort is running');
+            element.sort(function(a, b) {
+                let an = parseInt(a.getAttribute(arg)),
+                bn = parseInt(b.getAttribute(arg));
+                if (arg.includes("asc")) {
+                        if (an > bn)
+                        return 1;
+                        if (an < bn)
+                        return -1;
+                } else if (arg.includes("desc")) {
+                        if (an < bn)
+                        return 1;
+                        if (an > bn)
+                        return -1;
+                }
+                return 0;
+            });
+            console.log($(element));
+
+            console.log('sorting complete - attempting to manipulate DOM');
+            $(element).detach().appendTo($(sel));
+        }
+}
+
+
+function handleSort() {
+    console.log('handleSort running...');
+    $('#sort-option').change(function(event) {
+        const option = $('#sort-option option:selected').val();
+        console.log(option);
+        sortBy(option, '.results', 'li');
+    });
+}
+
+function showData(json, rating) {
     $('.results').empty();
     $('.home').addClass('hidden');
-    $('.try-again').removeClass('hidden');
-    for (let i = 0; i < json.total; i++) {
-        console.log(json['businesses'][i]);
-        $('.results').append(`<a href="${json['businesses'][i]["url"]}" target="_blank">
-            <div class="result">
-            <img src="${json['businesses'][i]["image_url"]}" alt="business photo">
-            <h2>${json['businesses'][i]["name"]}</h2>
-            <p>Distance: ${json['businesses'][i]["distance"] / 1609.344} miles<br>
-                <span class="address">Address: ${json['businesses'][i]["location"]["address1"]}</span><br>
-                <span class="hours">closed now? ${json['businesses'][i]["is_closed"]}</span><br>
-                <span class="rating">rating: ${json['businesses'][i]["rating"]}</span>
-            </p>
-            </div>
-        </a>`);
-    }
+    $('.results-container').removeClass('hidden');
     $('.try-again').click(event => appReset());
+    handleSort();
+
+    for (let i = 0; i < json.total; i++) {
+        if (json['businesses'][i].rating <= rating && json['businesses'][i]["is_closed"] == false) {
+            console.log(json['businesses'][i]);
+            $('.results').append(`<li name="${json['businesses'][i]["name"]}" distance="${(json['businesses'][i]["distance"] / 1609.344).toFixed(2)}" rating="${json['businesses'][i]["rating"]}" busyvalue="">
+            <a href="${json['businesses'][i]["url"]}" target="_blank">
+                <div class="result">
+                <img src="${json['businesses'][i]["image_url"]}" alt="business photo">
+                <h2>${json['businesses'][i]["name"]}</h2>
+                <p>Distance: ${(json['businesses'][i]["distance"] / 1609.344).toFixed(2)} miles<br>
+                    <span class="address">Address: ${json['businesses'][i]["location"]["address1"]}</span><br>
+                    <span class="hours">closed now? ${json['businesses'][i]["is_closed"]}</span><br>
+                    <span class="rating">rating: ${json['businesses'][i]["rating"]}</span>
+                </p>
+                </div>
+            </a>
+            </li>`);
+        }
+    }
+
 }
 
 function callYelp(lat, long, rating) {
@@ -30,24 +85,10 @@ function callYelp(lat, long, rating) {
         }
     };
     console.log(url);
-   /*$.ajax({
-        'url': 'https://api.yelp.com/v3/businesses/search',
-        'dataType': 'jsonp',
-        'data': {
-            'latitude': lat,
-            'longitude': long,
-            'radius': 3200,
-            'categories': 'divebars',
-            'price': 1
-        },
-        'cache': true
-        //'success': console.log(data)
-   });*/
-   
-   
+    const ratingval = rating;
     fetch(url, header)
     .then(response => response.json())
-    .then(responseJson => showData(responseJson));
+    .then(responseJson => showData(responseJson, ratingval));
 }
 
 function getData(position) {
@@ -55,11 +96,17 @@ function getData(position) {
     const long = position.coords.longitude;
     const rating = $(".stars input:checked").val();
     console.log(lat, long);
+    console.log(rating);
     callYelp(lat, long, rating);
 }
 
 function handleGo() {
+    $('.stars input').click(event => {
+
+        console.log($('.stars input:checked').val())
+    });
     $('#go').click(event => {
+        const rating = $(".stars input:checked").val();
         console.log('go button clicked');
         event.preventDefault();
         navigator.geolocation.getCurrentPosition(getData);
@@ -70,7 +117,7 @@ function handleGo() {
 function appReset() {
     $('.results').empty();
     $('.home').removeClass('hidden');
-    $('.try-again').addClass('hidden');
+    $('.results-container').addClass('hidden');
 }
 
 $(handleGo);

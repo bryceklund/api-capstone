@@ -21,17 +21,17 @@
 }
 
 .stars:not(:checked) > input {
-    position:absolute;
-    top:-9999px;
+    position: absolute;
+    top: -9999px;
 }
 .stars:not(:checked) > label {
-    float:right;
-    width:1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:30px;
-    color:#ccc;
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 30px;
+    color: #ccc;
 }
 .stars:not(:checked) > label:before {
     content: '★ ';
@@ -47,7 +47,8 @@
 .stars > input:checked + label:hover ~ label,
 .stars > input:checked ~ label:hover,
 .stars > input:checked ~ label:hover ~ label,
-.stars > label:hover ~ input:checked ~ label {
+.stars > label:hover ~ input:checked ~ label,
+.stars input:checked {
     color: #c59b08;
 }
 
@@ -77,7 +78,7 @@ h1 {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .results-container {
@@ -133,4 +134,8 @@ h1 {
     border: 2px solid red;
     margin: 10px;
     padding: 10px;
+}
+
+ul, li {
+    list-style: none;
 }
