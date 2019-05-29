@@ -120,15 +120,15 @@ h1 {
     padding: 15px;
     border: 1px solid white;
     margin: 10px;
-    height: 240px;
+    height: auto;
     width: 100%;
-    max-width: 900px;
+    max-width: 575px;
 
 }
 
 .result img {
     width: auto;
-    height: 200px;
+    height: 100px;
     float: left;
     margin-right: 10px;
 }
@@ -136,10 +136,13 @@ h1 {
 .result h2 {
     font-size: 23px;
     line-height: 32px;
+    text-align: right;
 }
 
 .result p {
     display: relative;
+    text-align: right;
+    margin-top: 5px;
 }
 
 .result span {
@@ -182,3 +185,17 @@ ul, li {
 .loading {
     margin-top: 200px;
 }
+
+.top-link, .location-text {
+    margin-bottom: 20px;
+}
+
+@media screen and (min-width: 600px) {
+    .result {
+        width: 80%;
+    }
+    .result img {
+        height: 200px;
+    }
+}
+

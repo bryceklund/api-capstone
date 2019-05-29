@@ -62,11 +62,19 @@ function handleSort(results) {
     });
 }
 
+
+
 function showData(json, rating) {
     $('.results').empty();
     $('.loading').addClass('hidden');
     $('.results-container').removeClass('hidden');
     $('.try-again').click(event => appReset());
+    $('.top-link').click(function(e) {
+        e.preventDefault();
+        $('body, html').animate({
+            scrollTop: $('head').offset().top
+        }, 500);
+    });
     let results = [];
     console.log(json.businesses);
     for (let i = 0; i < json.total; i++) {
