@@ -25,10 +25,6 @@ header {
     margin-bottom: 50px;
 }
 
-.result-rating {
-    
-}
-
 .stars {
     margin-top: 5px;
     list-style: none;
@@ -151,10 +147,6 @@ h1 {
 
 .address {
     color: #FF4545;
-}
-
-.hours {
-    color: 
 }
 
 .try-again {

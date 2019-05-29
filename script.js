@@ -1,4 +1,4 @@
-function sortBy(arr, key, dir) {
+function sortBy(arr, key, dir) { //sorting function; arguments are: the filtered results array, the parameter to sort by, and the direction to sort by
     if (key == 'name') {
         if (dir == 'asc') {
             return arr.sort(function(a, b) {
@@ -36,13 +36,12 @@ function sortBy(arr, key, dir) {
     }
 }
 
-function handleSort(results) {
-    console.log('handleSort running...');
+function handleSort(results) { //calls the sortBy function and then rearranges the results on the DOM
     const option = $('#sort-option option:selected').val();
-    let sorted = sortBy(results, option.split('-', 2)[0], option.split('-', 2)[1]);
-    if (option != "") {
-        $('.results').empty();
-        for (let i = 0; i < sorted.length; i++) {
+    let sorted = sortBy(results, option.split('-', 2)[0], option.split('-', 2)[1]); //parse out sort options and call sortBy()
+    if (option != "") { //prevent sorting if there is no sort option selected
+        $('.results').empty(); //clear the DOM
+        for (let i = 0; i < sorted.length; i++) { //display sorted results
             $('.results').append(`<li class="result" name="${sorted[i]["name"]}" distance="${(sorted[i]["distance"] / 1609.344).toFixed(2)}" rating="${sorted[i]["rating"]}" busyvalue="">
             <a href="${sorted[i]["url"]}" target="_blank">
                 <div class="">
@@ -62,23 +61,21 @@ function handleSort(results) {
 
 
 
-function showData(json, rating) {
+function showData(json, rating) { //clears the loading page, displays the initial results
     $('.results').empty();
     $('.loading').addClass('hidden');
     $('.results-container').removeClass('hidden');
     $('.try-again').click(event => appReset());
-    $('.top-link').click(function(e) {
+    $('.top-link').click(function(e) { //handles the animation for "back to top"
         e.preventDefault();
         $('body, html').animate({
             scrollTop: $('head').offset().top
         }, 500);
     });
-    let results = [];
-    console.log(json.businesses);
+    let results = []; //filtered results array for sorting
     for (let i = 0; i < json.total; i++) {
-        if (json['businesses'][i].rating <= rating && json['businesses'][i]["is_closed"] == false) {
-            results.push(json['businesses'][i]);
-            console.log(json['businesses'][i]);
+        if (json['businesses'][i].rating <= rating && json['businesses'][i]["is_closed"] == false) { //filters out results that are closed and have a rating higher than what is specified
+            results.push(json['businesses'][i]); //stores filtered results in the new array
             $('.results').append(`<li class="result" name="${json['businesses'][i]["name"]}" distance="${(json['businesses'][i]["distance"] / 1609.344).toFixed(2)}" rating="${json['businesses'][i]["rating"]}" busyvalue="">
             <a href="${json['businesses'][i]["url"]}" target="_blank">
                 <div class="">
@@ -94,26 +91,23 @@ function showData(json, rating) {
         }
 
     }
-    if (results.length == 0) {
+    if (results.length == 0) { //handles the case where there are no results
         $('.results').append(`<p class="no-results">No results found!</p>`);
     }
-    handleSort(results);
-    $('#sort-option').change(function(event) {
+    handleSort(results); //sort by the default option (near)
+    $('#sort-option').change(function(event) { //handle new sort requests
         handleSort(results);
     });
-    console.log(results);
 }
 
-function callYelp(lat, long, rating, couches, bars) {
+function callYelp(lat, long, rating, couches, bars) { //calls the yelp api
+    //handles URL changes based on landing page option selections
     let url = "https://cors-anywhere.herokuapp.com" + `/api.yelp.com:443/v3/businesses/search?latitude=${lat}&longitude=${long}&radius=3200&categories=divebars&price=1`;
     if (couches && bars) {
-        console.log('couch and bar');
         url = "https://cors-anywhere.herokuapp.com" + `/api.yelp.com:443/v3/businesses/search?term=couch&latitude=${lat}&longitude=${long}&radius=3200&categories=divebars,bars,lounges&price=1`;
     } else if (bars) {
-        console.log('bars');
         url = "https://cors-anywhere.herokuapp.com" + `/api.yelp.com:443/v3/businesses/search?latitude=${lat}&longitude=${long}&radius=3200&categories=divebars,bars,lounges&price=1`;
     } else if (couches) {
-        console.log('couches!');
         url = "https://cors-anywhere.herokuapp.com" + `/api.yelp.com:443/v3/businesses/search?term=couch&latitude=${lat}&longitude=${long}&radius=3200&categories=divebars&price=1`;
 
     }
@@ -125,14 +119,13 @@ function callYelp(lat, long, rating, couches, bars) {
             'Access-Control-Allow-Origin': '*'
         }
     };
-    console.log(url);
     const ratingval = rating;
-    fetch(url, header)
+    fetch(url, header) //here's where the real magic happens; inital fetch request to the yelp api
     .then(response => {
         if (response.ok) {
             return response.json();
         }
-        throw new Error(response.statusText);
+        throw new Error(response.statusText); //handle errors
     })
     .then(responseJson => showData(responseJson, ratingval))
     .catch(err => {
@@ -140,40 +133,34 @@ function callYelp(lat, long, rating, couches, bars) {
     });
 }
 
-function getData(position) {
+function getData(position) { //parses out data from the geolocation api and sends it to the yelp api
     $('.home').addClass('hidden');
-    $('.loading').removeClass('hidden');
+    $('.loading').removeClass('hidden'); //removes landing page, shows loading page 
     const lat = position.coords.latitude;
     const long = position.coords.longitude;
     const rating = $(".stars input:checked").val();
     const couches = $('#couches:checked').val();
     const bars = $('#bars:checked').val();
-    console.log(couches);
-    console.log(lat, long);
-    console.log(rating);
     callYelp(lat, long, rating, couches, bars);
 }
 
 function handleGo() {
-    $('.stars input').click(event => {
+    $('.stars input').click(event => { //highlights stars when clicked
         let label = $(`label[for=${$(this).attr('id')}]`);
-        console.log(label);
         $(`label[for=${$(event.currentTarget).attr('id')}]`).css('color', '#ffc700');
         $(`label[for!=${$(event.currentTarget).attr('id')}]`).css('color', '');
-        console.log($('.stars input:checked').val())
     });
-    $('#go').click(event => {
+    $('#go').click(event => { //takes rating from star selection and calls the geolocation api
         const rating = $(".stars input:checked").val();
-        console.log('go button clicked');
         event.preventDefault();
         navigator.geolocation.getCurrentPosition(getData);
     });
 }
 
-function appReset() {
+function appReset() { //resets the app to the landing page
     $('.results').empty();
     $('.home').removeClass('hidden');
     $('.results-container').addClass('hidden');
 }
 
-$(handleGo);
+$(handleGo); //document ready function to kick everything off
