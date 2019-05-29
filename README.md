@@ -4,7 +4,8 @@ https://bryceklund.github.io/bottom-feeder/
 
 A simple application for finding the nearest dive bars (within two miles).
 
-##Screenshots
+#Screenshots
+
 Landing page:
 
 ![title page](https://i.imgur.com/zf7hQBO.png)
@@ -14,7 +15,7 @@ Results page:
 
 ![results page](https://i.imgur.com/NyZyjUs.png)
 
-##Summary
+#Summary
 
 Set your desired maximum rating and specify whether you're looking for dive bars or normal bars, and whether you're looking for somewhere with couches. Hit 'GO' and view your results. Sortable by name, distance, and rating.
 
