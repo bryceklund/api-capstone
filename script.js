@@ -38,28 +38,26 @@ function sortBy(arr, key, dir) {
 
 function handleSort(results) {
     console.log('handleSort running...');
-    $('#sort-option').change(function(event) {
-        const option = $('#sort-option option:selected').val();
-        let sorted = sortBy(results, option.split('-', 2)[0], option.split('-', 2)[1]);
-        if (option != "") {
-            $('.results').empty();
-            for (let i = 0; i < sorted.length; i++) {
-                $('.results').append(`<li class="result" name="${sorted[i]["name"]}" distance="${(sorted[i]["distance"] / 1609.344).toFixed(2)}" rating="${sorted[i]["rating"]}" busyvalue="">
-                <a href="${sorted[i]["url"]}" target="_blank">
-                    <div class="">
-                    <img src="${sorted[i]["image_url"]}" alt="business photo">
-                    <h2>${sorted[i]["name"]}</h2>
-                    <p>Distance: ${(sorted[i]["distance"] / 1609.344).toFixed(2)} miles<br>
-                        <span class="address">Address: ${sorted[i]["location"]["address1"]}</span><br>
-                        <span class="result-rating">rating: ${sorted[i]["rating"]}</span>
-                    </p>
-                    </div>
-                </a>
-                </li>`
-            )};
-        }
+    const option = $('#sort-option option:selected').val();
+    let sorted = sortBy(results, option.split('-', 2)[0], option.split('-', 2)[1]);
+    if (option != "") {
+        $('.results').empty();
+        for (let i = 0; i < sorted.length; i++) {
+            $('.results').append(`<li class="result" name="${sorted[i]["name"]}" distance="${(sorted[i]["distance"] / 1609.344).toFixed(2)}" rating="${sorted[i]["rating"]}" busyvalue="">
+            <a href="${sorted[i]["url"]}" target="_blank">
+                <div class="">
+                <img src="${sorted[i]["image_url"]}" alt="business photo">
+                <h2>${sorted[i]["name"]}</h2>
+                <p>Distance: ${(sorted[i]["distance"] / 1609.344).toFixed(2)} miles<br>
+                    <span class="address">Address: ${sorted[i]["location"]["address1"]}</span><br>
+                    <span class="result-rating">rating: ${sorted[i]["rating"]}</span>
+                </p>
+                </div>
+            </a>
+            </li>`
+        )};
+    }
 
-    });
 }
 
 
@@ -100,6 +98,9 @@ function showData(json, rating) {
         $('.results').append(`<p class="no-results">No results found!</p>`);
     }
     handleSort(results);
+    $('#sort-option').change(function(event) {
+        handleSort(results);
+    });
     console.log(results);
 }
 
@@ -107,10 +108,10 @@ function callYelp(lat, long, rating, couches, bars) {
     let url = "https://cors-anywhere.herokuapp.com" + `/api.yelp.com:443/v3/businesses/search?latitude=${lat}&longitude=${long}&radius=3200&categories=divebars&price=1`;
     if (couches && bars) {
         console.log('couch and bar');
-        url = "https://cors-anywhere.herokuapp.com" + `/api.yelp.com:443/v3/businesses/search?term=couch&latitude=${lat}&longitude=${long}&radius=3200&categories=bars&price=1`;
+        url = "https://cors-anywhere.herokuapp.com" + `/api.yelp.com:443/v3/businesses/search?term=couch&latitude=${lat}&longitude=${long}&radius=3200&categories=divebars,bars,lounges&price=1`;
     } else if (bars) {
         console.log('bars');
-        url = "https://cors-anywhere.herokuapp.com" + `/api.yelp.com:443/v3/businesses/search?latitude=${lat}&longitude=${long}&radius=3200&categories=bars&price=1`;
+        url = "https://cors-anywhere.herokuapp.com" + `/api.yelp.com:443/v3/businesses/search?latitude=${lat}&longitude=${long}&radius=3200&categories=divebars,bars,lounges&price=1`;
     } else if (couches) {
         console.log('couches!');
         url = "https://cors-anywhere.herokuapp.com" + `/api.yelp.com:443/v3/businesses/search?term=couch&latitude=${lat}&longitude=${long}&radius=3200&categories=divebars&price=1`;
