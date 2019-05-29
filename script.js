@@ -51,7 +51,7 @@ function handleSort(results) {
                     <h2>${sorted[i]["name"]}</h2>
                     <p>Distance: ${(sorted[i]["distance"] / 1609.344).toFixed(2)} miles<br>
                         <span class="address">Address: ${sorted[i]["location"]["address1"]}</span><br>
-                        <span class="rating">rating: ${sorted[i]["rating"]}</span>
+                        <span class="result-rating">rating: ${sorted[i]["rating"]}</span>
                     </p>
                     </div>
                 </a>
@@ -80,7 +80,7 @@ function showData(json, rating) {
                 <h2>${json['businesses'][i]["name"]}</h2>
                 <p>Distance: ${(json['businesses'][i]["distance"] / 1609.344).toFixed(2)} miles<br>
                     <span class="address">Address: ${json['businesses'][i]["location"]["address1"]}</span><br>
-                    <span class="rating">rating: ${json['businesses'][i]["rating"]}</span>
+                    <span class="result-rating">rating: ${json['businesses'][i]["rating"]}</span>
                 </p>
                 </div>
             </a>
@@ -95,11 +95,18 @@ function showData(json, rating) {
     console.log(results);
 }
 
-function callYelp(lat, long, rating, couches) {
+function callYelp(lat, long, rating, couches, bars) {
     let url = "https://cors-anywhere.herokuapp.com" + `/api.yelp.com:443/v3/businesses/search?latitude=${lat}&longitude=${long}&radius=3200&categories=divebars&price=1`;
-    if (couches) {
+    if (couches && bars) {
+        console.log('couch and bar');
+        url = "https://cors-anywhere.herokuapp.com" + `/api.yelp.com:443/v3/businesses/search?term=couch&latitude=${lat}&longitude=${long}&radius=3200&categories=bars&price=1`;
+    } else if (bars) {
+        console.log('bars');
+        url = "https://cors-anywhere.herokuapp.com" + `/api.yelp.com:443/v3/businesses/search?latitude=${lat}&longitude=${long}&radius=3200&categories=bars&price=1`;
+    } else if (couches) {
         console.log('couches!');
         url = "https://cors-anywhere.herokuapp.com" + `/api.yelp.com:443/v3/businesses/search?term=couch&latitude=${lat}&longitude=${long}&radius=3200&categories=divebars&price=1`;
+
     }
     const header = {
         method: 'get',
@@ -131,10 +138,11 @@ function getData(position) {
     const long = position.coords.longitude;
     const rating = $(".stars input:checked").val();
     const couches = $('#couches:checked').val();
+    const bars = $('#bars:checked').val();
     console.log(couches);
     console.log(lat, long);
     console.log(rating);
-    callYelp(lat, long, rating, couches);
+    callYelp(lat, long, rating, couches, bars);
 }
 
 function handleGo() {
@@ -150,7 +158,6 @@ function handleGo() {
         console.log('go button clicked');
         event.preventDefault();
         navigator.geolocation.getCurrentPosition(getData);
-
     });
 }
 
