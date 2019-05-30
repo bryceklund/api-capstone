@@ -9,12 +9,12 @@ Screenshots
 
 Landing page:
 
-![title page](https://i.imgur.com/zf7hQBO.png)
+![title page](https://i.imgur.com/I5Sw9WD.png)
 
 
 Results page:
 
-![results page](https://i.imgur.com/NyZyjUs.png)
+![results page](https://i.imgur.com/hX93Bxu.png)
 
 Summary
 
