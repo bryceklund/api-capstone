@@ -73,8 +73,7 @@ function showData(json, rating) { //clears the loading page, displays the initia
         }, 500);
     });
     let results = []; //filtered results array for sorting
-    console.log(json.total);
-    for (let i = 0; i < json.total; i++) {
+    for (let i = 0; i < json.businesses.length; i++) {
         if (json['businesses'][i].rating <= rating && json['businesses'][i]["is_closed"] == false) { //filters out results that are closed and have a rating higher than what is specified
             results.push(json['businesses'][i]); //stores filtered results in the new array
             $('.results').append(`<li class="result" name="${json['businesses'][i]["name"]}" distance="${(json['businesses'][i]["distance"] / 1609.344).toFixed(2)}" rating="${json['businesses'][i]["rating"]}" busyvalue="">
