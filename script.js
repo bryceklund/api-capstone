@@ -73,6 +73,7 @@ function showData(json, rating) { //clears the loading page, displays the initia
         }, 500);
     });
     let results = []; //filtered results array for sorting
+    console.log(json.total);
     for (let i = 0; i < json.total; i++) {
         if (json['businesses'][i].rating <= rating && json['businesses'][i]["is_closed"] == false) { //filters out results that are closed and have a rating higher than what is specified
             results.push(json['businesses'][i]); //stores filtered results in the new array
@@ -161,6 +162,7 @@ function appReset() { //resets the app to the landing page
     $('.results').empty();
     $('.home').removeClass('hidden');
     $('.results-container').addClass('hidden');
+    $('.error-text').empty();
 }
 
 $(handleGo); //document ready function to kick everything off
