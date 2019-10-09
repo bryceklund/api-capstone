@@ -5,7 +5,7 @@ https://bryceklund.github.io/bottom-feeder/
 A simple application for finding the nearest dive bars (within two miles).
 
 
-Screenshots
+# Screenshots
 
 Landing page:
 
